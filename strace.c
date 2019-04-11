@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "strace.h"
+#include "syscall_table.h"
 
 
 int main(int argc, char **argv) {
@@ -73,7 +74,8 @@ int tracer(pid_t tracee_pid) {
 			continue;
 		}
 
-		printf("Syscall num: %llx \n", regs.orig_rax);
+		int syscall_num = regs.orig_rax;
+		printf("%s = %d\n", syscall_table[syscall_num], syscall_num);
 	}
 	return 0;
 }
